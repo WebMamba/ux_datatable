@@ -6,7 +6,6 @@ use App\DataTable\DataProviderInterface;
 
 class SimpleProvider implements DataProviderInterface
 {
-
     public function provide(): array
     {
         return [

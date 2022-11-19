@@ -4,8 +4,8 @@ namespace App\DataTable;
 
 class DataTableBuilder
 {
-    public function build(array|DataProviderInterface $provider, $columns): DataTable
+    public function build(array|DataProviderInterface $provider, $columns): AbstractDataTable
     {
-        return new DataTable($provider, $columns);
+        return new AbstractDataTable($provider, $columns);
     }
 }
