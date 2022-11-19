@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        {% for column in this.columns %}
+            <th>{{ column }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in this.data %}
+        <tr>
+        {% for column in this.columns %}
+            <td>{{ row[column] }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
