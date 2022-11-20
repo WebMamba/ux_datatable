@@ -10,5 +10,5 @@ interface PaginatorInterface
 
     public function getNumberOfItemByPage(): int;
 
-    public function getCurrentPage(array|DataProviderInterface $data, int $page): array;
+    public function getCurrentPage(array|DataTableProviderInterface $data, int $page): array;
 }

@@ -6,7 +6,7 @@ class DataTable
 {
     public function __construct(
         private array $columns,
-        private array $data
+        private array|DataTableProviderInterface $data
     ) {
     }
 
@@ -20,12 +20,12 @@ class DataTable
         $this->columns = $columns;
     }
 
-    public function getData(): array
+    public function getData(): array|DataTableProviderInterface
     {
         return $this->data;
     }
 
-    public function setData(array $data): void
+    public function setData(array|DataTableProviderInterface $data): void
     {
         $this->data = $data;
     }

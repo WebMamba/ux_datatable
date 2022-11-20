@@ -6,7 +6,7 @@ class DataTableBuilder
 {
     private array $columns;
 
-    private array $data;
+    private array|DataTableProviderInterface $data;
 
     public function setColumns(array $columns): self
     {
@@ -15,7 +15,7 @@ class DataTableBuilder
         return $this;
     }
 
-    public function setData(array $data): self
+    public function setData(array|DataTableProviderInterface $data): self
     {
         $this->data = $data;
 
