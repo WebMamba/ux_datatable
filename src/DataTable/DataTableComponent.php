@@ -12,13 +12,24 @@ class DataTableComponent
 
     public array|DataTableProviderInterface $data;
 
+    private int $pageSize = 5;
+
+    private bool $pagination = true;
+
+    private int $index = 0;
+
     #[PreMount]
     public function preMount(array $properties): array
     {
         $data = $properties['data'];
-        if ($data instanceof DataTableProviderInterface) {
-            $properties['data'] = $data->provide();
+
+        if ($this->pagination) {
+            $properties['data'] = array_slice($data, $this->pageSize * $this->index);
+
+            return $properties;
         }
+
+        $properties['data'] = $data;
 
         return $properties;
     }

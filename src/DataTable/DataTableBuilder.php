@@ -8,6 +8,10 @@ class DataTableBuilder
 
     private array|DataTableProviderInterface $data;
 
+    private int $pageSize = 5;
+
+    private bool $pagination = true;
+
     public function setColumns(array $columns): self
     {
         $this->columns = $columns;
@@ -22,8 +26,22 @@ class DataTableBuilder
         return $this;
     }
 
+    public function setPageSize(int $pageSize): self
+    {
+        $this->pageSize = $pageSize;
+
+        return $this;
+    }
+
+    public function withPagination(bool $pagination): self
+    {
+        $this->pagination = $pagination;
+
+        return $this;
+    }
+
     public function getDataTable(): DataTable
     {
-        return new DataTable($this->columns, $this->data);
+        return new DataTable($this->columns, $this->data, $this->pageSize, $this->pagination);
     }
 }

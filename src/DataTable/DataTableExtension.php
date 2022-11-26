@@ -23,7 +23,9 @@ class DataTableExtension extends AbstractExtension
     {
         return $this->componentRenderer->createAndRender('dataTable', [
             'columns' => $dataTable->getColumns(),
-            'data' => $dataTable->getData()
+            'data' => $dataTable->getData(),
+            'pageSize' => $dataTable->getPageSize(),
+            'pagination' => $dataTable->withPagination()
         ]);
     }
 }

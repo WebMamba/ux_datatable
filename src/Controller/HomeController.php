@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\DataTable\DataTableBuilder;
-use App\Provider\UserTableProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +16,18 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
+        $data = [
+            ['id' => 3, 'firstName' => 'Mathew', 'lastName' => 'French'],
+            ['id' => 4, 'firstName' => 'Bob', 'lastName' => 'Dog'],
+            ['id' => 3, 'firstName' => 'Mathew', 'lastName' => 'French'],
+            ['id' => 4, 'firstName' => 'Bob', 'lastName' => 'Dog']
+        ];
+
         $table = $this->dataTableBuilder
             ->setColumns(['id', 'firstName', 'lastName'])
-            ->setData(new UserTableProvider())
+            ->setData($data)
+            ->setPageSize(1)
+            ->withPagination(true)
             ->getDataTable()
         ;
 

@@ -5,8 +5,10 @@ namespace App\DataTable;
 class DataTable
 {
     public function __construct(
-        private array $columns,
-        private array|DataTableProviderInterface $data
+        private readonly array $columns,
+        private readonly array|DataTableProviderInterface $data,
+        private readonly int $pageSize = 5,
+        private readonly bool $pagination = true,
     ) {
     }
 
@@ -15,18 +17,18 @@ class DataTable
         return $this->columns;
     }
 
-    public function setColumns(array $columns): void
-    {
-        $this->columns = $columns;
-    }
-
     public function getData(): array|DataTableProviderInterface
     {
         return $this->data;
     }
 
-    public function setData(array|DataTableProviderInterface $data): void
+    public function getPageSize(): int
     {
-        $this->data = $data;
+        return $this->pageSize;
+    }
+
+    public function withPagination(): bool
+    {
+        return $this->pagination;
     }
 }
