@@ -6,7 +6,8 @@ class DataTable
 {
     public function __construct(
         private readonly array $columns,
-        private readonly array|DataTableProviderInterface $data,
+        private readonly ?array $data,
+        private readonly ?string $provider,
         private readonly int $pageSize = 5,
         private readonly bool $pagination = true,
     ) {
@@ -30,5 +31,10 @@ class DataTable
     public function withPagination(): bool
     {
         return $this->pagination;
+    }
+
+    public function getProvider(): ?string
+    {
+        return $this->provider;
     }
 }

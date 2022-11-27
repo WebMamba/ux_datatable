@@ -3,14 +3,16 @@
 namespace App\Provider;
 
 use App\DataTable\DataTableProviderInterface;
+use App\Repository\UserRepository;
 
 class UserTableProvider implements DataTableProviderInterface
 {
-    public function provide(): array
+    public function __construct(
+        private UserRepository $userRepository
+    ) {}
+
+    public function provide(int $offset, int $pageSize, array $context = []): array
     {
-        return [
-            ['id' => 3, 'firstName' => 'Mathew', 'lastName' => 'French'],
-            ['id' => 4, 'firstName' => 'Bob', 'lastName' => 'Dog']
-        ];
+        return $this->userRepository->findBy([], null, $offset, $pageSize);
     }
 }

@@ -6,7 +6,9 @@ class DataTableBuilder
 {
     private array $columns;
 
-    private array|DataTableProviderInterface $data;
+    private ?array $data = null;
+
+    private ?string $provider = null;
 
     private int $pageSize = 5;
 
@@ -19,9 +21,16 @@ class DataTableBuilder
         return $this;
     }
 
-    public function setData(array|DataTableProviderInterface $data): self
+    public function setData(array $data): self
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    public function setProvider(string $provider): self
+    {
+        $this->provider = $provider;
 
         return $this;
     }
@@ -42,6 +51,6 @@ class DataTableBuilder
 
     public function getDataTable(): DataTable
     {
-        return new DataTable($this->columns, $this->data, $this->pageSize, $this->pagination);
+        return new DataTable($this->columns, $this->data, $this->provider, $this->pageSize, $this->pagination);
     }
 }

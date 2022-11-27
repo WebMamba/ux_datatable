@@ -1,14 +1,24 @@
-<table>
-    <tr>
-        {% for column in this.columns %}
-            <th>{{ column }}</th>
-        {% endfor %}
-    </tr>
-    {% for row in this.data %}
+<div {{ attributes }}>
+    <table {{ attributes }}>
         <tr>
-        {% for column in this.columns %}
-            <td>{{ row[column] }}</td>
-        {% endfor %}
+            {% for column in this.columns %}
+                <th>{{ column }}</th>
+            {% endfor %}
         </tr>
-    {% endfor %}
-</table>
+        {% for row in this.data %}
+            <tr>
+                {% for column in this.columns %}
+                    <td>{{ row[column] }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <button
+            data-action="live#action"
+            data-action-name="previous"
+    >Previous</button>
+    <button
+            data-action="live#action"
+            data-action-name="next"
+    >Next</button>
+</div>

@@ -2,35 +2,62 @@
 
 namespace App\DataTable;
 
-use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
-use Symfony\UX\TwigComponent\Attribute\PreMount;
+use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
+use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\PostMount;
 
-#[AsTwigComponent('dataTable')]
+#[AsLiveComponent('dataTable')]
 class DataTableComponent
 {
-    public array $columns;
+    use DefaultActionTrait;
 
-    public array|DataTableProviderInterface $data;
+    #[LiveProp(writable: false)]
+    public array $columns = [];
 
-    private int $pageSize = 5;
+    #[LiveProp(writable: true)]
+    public array $data = [];
 
-    private bool $pagination = true;
+    #[LiveProp(writable: false)]
+    public array|DataTableProviderInterface $provider = [];
 
-    private int $index = 0;
+    #[LiveProp(writable: false)]
+    public int $pageSize = 3;
 
-    #[PreMount]
-    public function preMount(array $properties): array
+    #[LiveProp(writable: false)]
+    public bool $pagination = true;
+
+    #[LiveProp(writable: true)]
+    public int $index = 0;
+
+    #[LiveAction]
+    public function next(): void
     {
-        $data = $properties['data'];
+        ++$this->index;
 
         if ($this->pagination) {
-            $properties['data'] = array_slice($data, $this->pageSize * $this->index);
+            $this->data = array_slice($this->provider, $this->pageSize * $this->index, $this->pageSize);
+        }
+    }
 
-            return $properties;
+    #[LiveAction]
+    public function previous(): void
+    {
+        --$this->index;
+
+        if ($this->pagination) {
+            $this->data = array_slice($this->provider, $this->pageSize * $this->index, $this->pageSize);
+        }
+    }
+
+    #[PostMount]
+    public function postMount(array $data): array
+    {
+        if ($this->pagination) {
+            $this->data = array_slice($this->provider, $this->pageSize * $this->index, $this->pageSize);
         }
 
-        $properties['data'] = $data;
-
-        return $properties;
+        return [];
     }
 }
