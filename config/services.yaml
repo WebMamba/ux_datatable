@@ -20,5 +20,12 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    _instanceof:
+        App\DataTable\DataTableProviderInterface:
+            tags: ['app.provider']
+
+    App\DataTable\ProviderResolver:
+        arguments:
+            - !tagged 'app.provider'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

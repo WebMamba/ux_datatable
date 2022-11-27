@@ -11,8 +11,8 @@ class UserTableProvider implements DataTableProviderInterface
         private UserRepository $userRepository
     ) {}
 
-    public function provide(int $offset, int $pageSize, array $context = []): array
+    public function provide(int $offset = 0, int $pageSize = null, array $context = []): array
     {
-        return $this->userRepository->findBy([], null, $offset, $pageSize);
+        return $this->userRepository->findBy([], null, $pageSize, $offset);
     }
 }

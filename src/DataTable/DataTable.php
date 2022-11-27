@@ -2,6 +2,8 @@
 
 namespace App\DataTable;
 
+use JetBrains\PhpStorm\Pure;
+
 class DataTable
 {
     public function __construct(
@@ -13,12 +15,17 @@ class DataTable
     ) {
     }
 
+    public static function create(array $columns, ?array $data, ?string $provider, int $pageSize, bool $pagination): self
+    {
+        return new self($columns, $data, $provider, $pageSize, $pagination);
+    }
+
     public function getColumns(): array
     {
         return $this->columns;
     }
 
-    public function getData(): array|DataTableProviderInterface
+    public function getData(): ?array
     {
         return $this->data;
     }

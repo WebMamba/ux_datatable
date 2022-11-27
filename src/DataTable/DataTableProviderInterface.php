@@ -4,5 +4,5 @@ namespace App\DataTable;
 
 interface DataTableProviderInterface
 {
-    public function provide(int $offset, int $pageSize, array $context = []): array;
+    public function provide(int $offset = 0, ?int $pageSize = null, array $context = []): array;
 }

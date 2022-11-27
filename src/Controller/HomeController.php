@@ -19,7 +19,7 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $table = $this->dataTableBuilder
-            ->setColumns(['id', 'firstName', 'lastName'])
+            ->setColumns(['id', 'firstName', 'lastName', 'age'])
             ->setProvider(UserTableProvider::class)
             ->setPageSize(5)
             ->withPagination(true)
@@ -27,7 +27,7 @@ class HomeController extends AbstractController
         ;
 
         return $this->render('index.html.twig', [
-            'table' => $table
+            'table' => $table,
         ]);
     }
 }

@@ -22,9 +22,9 @@ class DataTableExtension extends AbstractExtension
     public function createDataTable(DataTable $dataTable): string
     {
         return $this->componentRenderer->createAndRender('dataTable', [
-            'data' => [],
+            'data' => $dataTable->getData(),
             'columns' => $dataTable->getColumns(),
-            'provider' => $dataTable->getData(),
+            'provider' => $dataTable->getProvider(),
             'pageSize' => $dataTable->getPageSize(),
             'pagination' => $dataTable->withPagination()
         ]);
